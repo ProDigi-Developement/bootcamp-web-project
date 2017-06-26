@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-
-class CardComponents extends Component {
+class PersonCardComponent extends Component {
   render() {
+    console.log(this.props.person);
+    let person = this.props.person;
     return (
         <Card>
             <CardHeader
-            title="Expandable Card Component"
+            title={`${person.name.title} ${person.name.first} ${person.name.last}`}
             subtitle="Subtitle here"
             actAsExpander={true}
             showExpandableButton={true}
@@ -26,4 +27,4 @@ class CardComponents extends Component {
     );
   }
 }
-export default CardComponents;
+export default PersonCardComponent;
