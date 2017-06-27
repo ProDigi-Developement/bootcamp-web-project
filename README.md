@@ -25,3 +25,13 @@ For example, if you copy a file called my_image.png into the build folder you ca
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 * [Material UI](material-ui.com)
+
+
+### Exercises 
+
+Branch randomuser_checkpoint
+Add email field in Card Component
+Add avatar image to Card Component
+http://www.material-ui.com/#/components/card look at CardHeader properties to add avatar
+Create person bio text for CardText component inside PersonCardComponent
+Replace the Lorem Ispum text with something like This person lives at {address} and his DOB is {DOB}
