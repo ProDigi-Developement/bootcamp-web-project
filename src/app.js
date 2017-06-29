@@ -16,14 +16,24 @@ import {
 } from "material-ui/Toolbar";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
+<<<<<<< HEAD
 import API from 'utils/api';
 import EnterModal from 'components/enter_modal';
 import MobileTearSheet from 'components/tearsheet';
+=======
+
+>>>>>>> 1b37cd891d01edc8b0f0bbfb6cd52344663fc49d
 const styles = {
   container: {
     display: "flex",
     flexWrap: "wrap"
   },
+<<<<<<< HEAD
+=======
+  messages: {
+    width: 800
+  }
+>>>>>>> 1b37cd891d01edc8b0f0bbfb6cd52344663fc49d
 };
 
 class MyApp extends Component {
@@ -71,6 +81,7 @@ class MyApp extends Component {
   render() {
     return (
       <div style={styles.container}>
+<<<<<<< HEAD
         <MobileTearSheet width={200}>
         <EnterModal open={this.state.open} handleClose={this.handleClose.bind(this)} />
           <List>
@@ -97,6 +108,31 @@ class MyApp extends Component {
             </Toolbar>
           </List>
         </MobileTearSheet>
+=======
+        <List>
+          <Subheader>Channels</Subheader>
+          <ListItem primaryText="#general" />
+        </List>
+        <List style={styles.messages}>
+          <ListItem
+            primaryText="@username"
+            secondaryText={"this is my message"}
+          />
+          <Divider />
+          <ListItem
+            primaryText="@username"
+            secondaryText={"this is my message"}
+          />
+          <Divider />
+          <Toolbar>
+            <TextField hintText="Enter your message" fullWidth={true} />
+            <ToolbarGroup lastChild>
+              <RaisedButton label="Send" primary={true} />
+            </ToolbarGroup>
+          </Toolbar>
+        </List>
+
+>>>>>>> 1b37cd891d01edc8b0f0bbfb6cd52344663fc49d
       </div>
     );
   }
