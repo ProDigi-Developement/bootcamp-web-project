@@ -18,15 +18,12 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import API from 'utils/api';
 import EnterModal from 'components/enter_modal';
-
+import MobileTearSheet from 'components/tearsheet';
 const styles = {
   container: {
     display: "flex",
     flexWrap: "wrap"
   },
-  messages: {
-    width: 800
-  }
 };
 
 class MyApp extends Component {
@@ -74,28 +71,32 @@ class MyApp extends Component {
   render() {
     return (
       <div style={styles.container}>
+        <MobileTearSheet width={200}>
         <EnterModal open={this.state.open} handleClose={this.handleClose.bind(this)} />
-        <List>
-          <Subheader>Channels</Subheader>
-          <ListItem primaryText="#general" />
-        </List>
-        <List style={styles.messages}>
-          {this.state.messages.map((msg) => {
-            return (<div><ListItem
-                    primaryText={`${msg.username}`}
-                    secondaryText={`${msg.text}`}
-                  />
-                  <Divider />
-                  </div>)
-          })}
-          <Toolbar>
-            <TextField hintText="Enter your message" fullWidth={true} value={this.state.msg} onChange={this.handleChange.bind(this)}/>
-            <ToolbarGroup lastChild>
-              <RaisedButton label="Send" primary={true} onTouchTap={this.handleSubmit.bind(this)} />
-            </ToolbarGroup>
-          </Toolbar>
-        </List>
-
+          <List>
+            <Subheader>Channels</Subheader>
+            <ListItem primaryText="#general" />
+          </List>
+          </MobileTearSheet>
+          <MobileTearSheet width={800}>
+          <List className="chat-container">
+            <div className="chat-list">{this.state.messages.map((msg) => {
+              return (<div><ListItem
+                      primaryText={`${msg.username}`}
+                      secondaryText={`${msg.text}`}
+                      className="chat"
+                    />
+                    <Divider />
+                    </div>)
+            })}</div>
+            <Toolbar className="chat-input">
+              <TextField hintText="Enter your message" fullWidth={true} value={this.state.msg} onChange={this.handleChange.bind(this)}/>
+              <ToolbarGroup lastChild>
+                <RaisedButton label="Send" primary={true} onTouchTap={this.handleSubmit.bind(this)} style={{marginBottom:15}}/>
+              </ToolbarGroup>
+            </Toolbar>
+          </List>
+        </MobileTearSheet>
       </div>
     );
   }

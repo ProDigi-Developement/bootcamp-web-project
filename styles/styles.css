@@ -1,3 +1,31 @@
 h1 {
   color: tomato;
 }
+.chat-container {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  xjustify-content: flex-end;
+  overflow: none;
+}
+.chat-list {
+  flex: 1 0 100px;
+  display: flex;
+  flex-flow: column nowrap;
+  xjustify-content: flex-end;
+  overflow-y: scroll;
+}
+
+.chat {
+  flex: none;
+  align-self: flex-start;
+  background-color: lightgreen;
+}
+.chat.mine {
+  align-self: flex-end;
+  background-color: pink;
+}
+
+.chat-input {
+  flex: 0 1 auto;
+}
