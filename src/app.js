@@ -48,6 +48,7 @@ class MyApp extends Component {
   };
 
   handleClose(username) {
+    console.log(username);
     this.setState({open: false});
   };
 
