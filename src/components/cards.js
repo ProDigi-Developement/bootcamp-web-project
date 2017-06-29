@@ -3,7 +3,6 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 class PersonCardComponent extends Component {
   render() {
-    console.log(this.props.person);
     let person = this.props.person;
     return (
         <Card>
