@@ -32,21 +32,25 @@ const styles = {
 class MyApp extends Component {
   constructor() {
     super();
+    this.api = null;
     this.state = {
       open: false,
       username: 'tharshan',
-      messages: []
+      messages: [],
+      msg:''
     };
   }
   componentWillMount() {
-    let api = new API();
-    api.login(resp => {
-      api.getMessages(resp => {
-        this.setState({messages:Object.values(resp)});
-      });
+    this.api = new API();
+    this.api.login(resp => {
+      this.loadMessages();
     });
   }
-
+  loadMessages() {
+    this.api.getMessages(resp => {
+      this.setState({messages:Object.values(resp)});
+    });
+  }
   handleOpen() {
     this.setState({open: true});
   };
@@ -54,7 +58,19 @@ class MyApp extends Component {
   handleClose(username) {
     this.setState({open: false, username: username});
   };
-
+  handleChange(event) {
+    this.setState({
+      msg: event.target.value,
+    });
+  }
+  handleSubmit(event) {
+    this.api.sendMessage(this.state.username, this.state.msg, cb => {
+      this.loadMessages();
+      this.setState({
+        msg: ''
+      });
+    })
+  }
   render() {
     return (
       <div style={styles.container}>
@@ -73,9 +89,9 @@ class MyApp extends Component {
                   </div>)
           })}
           <Toolbar>
-            <TextField hintText="Enter your message" fullWidth={true} />
+            <TextField hintText="Enter your message" fullWidth={true} value={this.state.msg} onChange={this.handleChange.bind(this)}/>
             <ToolbarGroup lastChild>
-              <RaisedButton label="Send" primary={true} />
+              <RaisedButton label="Send" primary={true} onTouchTap={this.handleSubmit.bind(this)} />
             </ToolbarGroup>
           </Toolbar>
         </List>
