@@ -33,13 +33,17 @@ class MyApp extends Component {
   constructor() {
     super();
     this.state = {
-      open: true,
+      open: false,
+      username: 'tharshan',
+      messages: []
     };
   }
   componentWillMount() {
     let api = new API();
     api.login(resp => {
-      console.log(resp);
+      api.getMessages(resp => {
+        this.setState({messages:Object.values(resp)});
+      });
     });
   }
 
@@ -48,8 +52,7 @@ class MyApp extends Component {
   };
 
   handleClose(username) {
-    console.log(username);
-    this.setState({open: false});
+    this.setState({open: false, username: username});
   };
 
   render() {
@@ -61,16 +64,14 @@ class MyApp extends Component {
           <ListItem primaryText="#general" />
         </List>
         <List style={styles.messages}>
-          <ListItem
-            primaryText="@username"
-            secondaryText={"this is my message"}
-          />
-          <Divider />
-          <ListItem
-            primaryText="@username"
-            secondaryText={"this is my message"}
-          />
-          <Divider />
+          {this.state.messages.map((msg) => {
+            return (<div><ListItem
+                    primaryText={`${msg.username}`}
+                    secondaryText={`${msg.text}`}
+                  />
+                  <Divider />
+                  </div>)
+          })}
           <Toolbar>
             <TextField hintText="Enter your message" fullWidth={true} />
             <ToolbarGroup lastChild>

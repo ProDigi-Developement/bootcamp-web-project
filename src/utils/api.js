@@ -25,8 +25,12 @@ class API {
             cb(resp);
         });
     }
-    getMessages() {
-        
+    getMessages(cb) {
+        fetch(`https://prodigi-bootcamp.firebaseio.com/${this.localId}/messages.json?auth=${this.idToken}`)
+        .then(resp => resp.json())
+        .then(resp => {
+            cb(resp);
+        });
     }
 }
 export default API;
