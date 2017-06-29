@@ -16,6 +16,7 @@ import {
 } from "material-ui/Toolbar";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
+import API from 'utils/api';
 
 const styles = {
   container: {
@@ -28,6 +29,12 @@ const styles = {
 };
 
 class MyApp extends Component {
+  componentWillMount() {
+    let api = new API();
+    api.login(resp => {
+      console.log(resp);
+    });
+  }
   render() {
     return (
       <div style={styles.container}>
