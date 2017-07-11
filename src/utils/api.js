@@ -26,6 +26,31 @@ class API {
             cb(resp);
         });
     }    
+
+    getMessages(cb) {
+        fetch(`https://prodigi-bootcamp.firebaseio.com/${this.localId}/messages.json?auth=${this.idToken}`)
+        .then(resp => resp.json())
+        .then(resp => {
+            cb(resp);
+        });
+    }
+
+    addMessage(username, text, cb) {
+        fetch(`https://prodigi-bootcamp.firebaseio.com/${this.localId}/messages.json?auth=${this.idToken}`, {
+            method: 'post',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                "username": username,
+                "text": text
+            })
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            cb(resp);
+        });
+    }
 }
 
 export default API

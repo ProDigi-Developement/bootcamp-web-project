@@ -33,41 +33,62 @@ class MyApp extends Component {
   constructor() {
     super()
     this.state = {
-      open: true
+      open: true,
+      username: "",
+      messages: [],
+      msg:''
     }
+    this.api = null;
   }
-  handleClose() {
-    this.setState({open:false})
+  handleClose(username) {
+    console.log("username is", username)
+    this.setState({open:false, username: username})
   }
   componentWillMount() {
-    let api = new API();
-    api.login(resp => {
-      console.log(resp);
+    this.api = new API();
+    this.api.login(resp => {
+      this.loadMessages();
     })
+  }
+  loadMessages() {
+    this.api.getMessages(resp => {
+      this.setState({messages:Object.values(resp)});
+    });
+  }
+  handleChange(event) {
+    console.log(event.target.value);
+    this.setState({msg:event.target.value});
+  }
+  handleSubmit(event) {
+    this.api.addMessage(this.state.username, this.state.msg, cb => {
+      this.loadMessages();
+      this.setState({msg:''});
+    });
   }
   render() {
     return (
       <div style={styles.container}>
-        <EnterModal open={this.state.open}/>
+        <EnterModal open={this.state.open} handleClose={this.handleClose.bind(this)}/>
         <List>
           <Subheader>Channels</Subheader>
           <ListItem primaryText="#general" />
         </List>
         <List style={styles.messages}>
-          <ListItem
-            primaryText="@username"
-            secondaryText={"this is my message"}
-          />
-          <Divider />
-          <ListItem
-            primaryText="@username"
-            secondaryText={"this is my message"}
-          />
-          <Divider />
+          {this.state.messages.map((msg, idx) => {
+            return (
+              <div key={idx}>
+                <ListItem
+                  primaryText={msg.username}
+                  secondaryText={msg.text}
+                />
+                <Divider />
+              </div>
+            )
+          })}
           <Toolbar>
-            <TextField hintText="Enter your message" fullWidth={true} />
+            <TextField hintText="Enter your message" fullWidth={true} value={this.state.msg} onChange={this.handleChange.bind(this)}/>
             <ToolbarGroup lastChild>
-              <RaisedButton label="Send" primary={true} />
+              <RaisedButton label="Send" primary={true} onTouchTap={this.handleSubmit.bind(this)}/>
             </ToolbarGroup>
           </Toolbar>
         </List>

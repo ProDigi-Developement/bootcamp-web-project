@@ -7,25 +7,26 @@ import TextField from "material-ui/TextField";
  * A modal dialog can only be closed by selecting one of the actions.
  */
 class EnterModal extends React.Component {
-  state = {
-    open: this.props.open,
-  };
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    this.setState({open: false});
-  };
+  constructor() {
+      super();
+      this.state = {
+          username: ""
+      }
+  }
+  handleChange(e, v) {
+      console.log(v);
+      this.setState({
+          username: v
+      })
+  }
 
   render() {
     const actions = [
       <FlatButton
         label="Enter"
+        disabled={this.state.username == "" ? true : false}
         primary={true}
-        disabled={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.props.handleClose.bind(this, this.state.username)}
       />,
     ];
 
@@ -35,9 +36,11 @@ class EnterModal extends React.Component {
           title="Enter your username to continue"   
           actions={actions}
           modal={true}
-          open={this.state.open}
+          open={this.props.open}
         >
-          <TextField hintText="Enter your username" />
+          <TextField hintText="Enter your username" 
+            onChange={this.handleChange.bind(this)}
+            required/>
         </Dialog>
       </div>
     );
